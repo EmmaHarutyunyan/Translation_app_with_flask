@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Translator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Language Translator</h1>
+        </header>
+
+        <div class="content">
+            <div class="form-container">
+                <form id="translate-form">
+                    <div class="form-group">
+                        <label for="text">Enter Text to Translate:</label>
+                        <textarea id="text" name="text" rows="4" placeholder="Type text here..." required>{{ request.form['text'] if request.form.get('text') else '' }}</textarea>
+                        
+                        <div class="language-select-wrapper">
+                            <button type="button" id="mic-btn" title="Speak" onclick="startDictation()">🎤</button>
+                            <button type="button" id="speak-input-btn" title="Speak Input" onclick="speakInputText()">🔊</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="src_lang">From:</label>
+                        <div class="language-select-wrapper">
+                            <select id="src_lang" name="src_lang" required>
+                                <option value="auto" {% if request.form['src_lang'] == 'auto' %} selected {% endif %}>Auto-Detect</option>
+                                {% for code, language in languages.items() %}
+                                    <option value="{{ code }}" {% if request.form['src_lang'] == code %} selected {% endif %}>{{ language }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dest_lang">To:</label>
+                        <select id="dest_lang" name="dest_lang" required>
+                            {% for code, language in languages.items() %}
+                                <option value="{{ code }}" {% if request.form['dest_lang'] == code %} selected {% endif %}>{{ language }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+            <div class="result-container">
+                <button type="button" id="speak-translated-btn" onclick="speakTranslatedText()">🔊</button>
+                <h2>Translated Text:</h2>
+                <p id="translated-text">{{ translated_text if translated_text else 'No translation yet' }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to the external script.js file -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
