@@ -84,5 +84,5 @@ pip install -r requirements.txt
 ```
 python app.py
 ```
-
+![Translate](https://github.com/user-attachments/assets/c6b03b86-e628-4b2f-bd24-7912e88f452f)
 
