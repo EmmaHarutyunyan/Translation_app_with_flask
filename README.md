@@ -5,7 +5,6 @@
 This Flask application allows users to:
 
 - Translate text between multiple languages in real-time.
-- Use Google Translate API for translation.
 - Convert speech to text with Speech Recognition.
 - Use text-to-speech for translated text.
 - Enjoy dynamic, AJAX-based translations for a smooth experience.
